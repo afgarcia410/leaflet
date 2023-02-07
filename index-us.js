@@ -1,25 +1,43 @@
-var map = L.map('map').setView([40.4637, 3.7492], 4);
+var map = L.map('map').setView([37.8, -96], 4);
 
 var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-L.geoJson(provincia).addTo(map);
-//L.geoJson(municipios).addTo(map);
+L.geoJson(statesData).addTo(map);
+
+var markerLiberty = L.marker([40.689247, -74.044502]).addTo(map);
+
+var markerWhiteHouse = L.marker([38.897957,  -77.036560]).addTo(map);
+
+var circleLA = L.circle([34.052235, -118.243683], {
+    color: 'blue',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 50000
+}).addTo(map);
+
+var polygonTriangle = L.polygon([
+    [25.793449, -80.139198],
+    [18.466333, -66.105721],
+    [32.366859, -64.683647]
+]).addTo(map);
+/*
 function getColor(d) {
-    return d > '' ? '#800026' :
+    return d > 1000 ? '#800026' :
            d > 500  ? '#BD0026' :
            d > 200  ? '#E31A1C' :
            d > 100  ? '#FC4E2A' :
            d > 50   ? '#FD8D3C' :
            d > 20   ? '#FEB24C' :
-           d > "Catalu\u00f1a"   ? '#FED976' :
+           d > 10   ? '#FED976' :
                       '#FFEDA0';
 }
+
 function style(feature) {
     return {
-        fillColor: getColor(features.properties.coordinates),
+        fillColor: getColor(feature.properties.density),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -28,9 +46,8 @@ function style(feature) {
     };
 }
 
-L.geoJson(provincia, {style: style}).addTo(map);
-
-/*Leyenda*/
+L.geoJson(statesData, {style: style}).addTo(map);
+*/
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
@@ -49,4 +66,4 @@ legend.onAdd = function (map) {
     return div;
 };
 
-legend.addTo(map); 
+legend.addTo(map);
